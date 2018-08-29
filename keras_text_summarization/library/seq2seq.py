@@ -515,7 +515,7 @@ class Seq2SeqGloVeSummarizerV2(object):
     def get_architecture_file_path(model_dir_path):
         return model_dir_path + '/' + Seq2SeqGloVeSummarizerV2.model_name + '-architecture.json'
 
-    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, batch_size=None, model_dir_path=None, callbacks=None):
+    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, callbacks=None, batch_size=None, model_dir_path=None):
         if epochs is None:
             epochs = DEFAULT_EPOCHS
         if model_dir_path is None:

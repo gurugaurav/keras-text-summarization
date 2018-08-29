@@ -130,7 +130,7 @@ class Seq2SeqSummarizer(object):
     def get_architecture_file_path(model_dir_path):
         return model_dir_path + '/' + Seq2SeqSummarizer.model_name + '-architecture.json'
 
-    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, batch_size=None, model_dir_path=None):
+    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None,callbacks=None, batch_size=None, model_dir_path=None):
         if epochs is None:
             epochs = DEFAULT_EPOCHS
         if model_dir_path is None:
@@ -162,7 +162,7 @@ class Seq2SeqSummarizer(object):
         history = self.model.fit_generator(generator=train_gen, steps_per_epoch=train_num_batches,
                                            epochs=epochs,
                                            verbose=VERBOSE, validation_data=test_gen, validation_steps=test_num_batches,
-                                           callbacks=[checkpoint])
+                                           callbacks=[checkpoint,callbacks])
         self.model.save_weights(weight_file_path)
         return history
 
@@ -322,7 +322,7 @@ class Seq2SeqGloVeSummarizer(object):
     def get_architecture_file_path(model_dir_path):
         return model_dir_path + '/' + Seq2SeqGloVeSummarizer.model_name + '-architecture.json'
 
-    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, batch_size=None, model_dir_path=None):
+    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, callbacks=None, batch_size=None, model_dir_path=None):
         if epochs is None:
             epochs = DEFAULT_EPOCHS
         if model_dir_path is None:
@@ -354,7 +354,7 @@ class Seq2SeqGloVeSummarizer(object):
         history = self.model.fit_generator(generator=train_gen, steps_per_epoch=train_num_batches,
                                            epochs=epochs,
                                            verbose=VERBOSE, validation_data=test_gen, validation_steps=test_num_batches,
-                                           callbacks=[checkpoint])
+                                           callbacks=[checkpoint,callbacks])
         self.model.save_weights(weight_file_path)
         return history
 

@@ -6,6 +6,8 @@ from keras_text_summarization.library.utility.plot_utils import plot_and_save_hi
 from keras_text_summarization.library.seq2seq import Seq2SeqSummarizer
 from keras_text_summarization.library.applications.fake_news_loader import fit_text
 import numpy as np
+import keras
+
 
 LOAD_EXISTING_WEIGHTS = False
 
@@ -36,7 +38,8 @@ def main():
     print('testing size: ', len(Xtest))
 
     print('start fitting ...')
-    history = summarizer.fit(Xtrain, Ytrain, Xtest, Ytest, epochs=100)
+    tbCallBack = keras.callbacks.TensorBoard(log_dir='/tmp/log', histogram_freq=0, write_graph=True, write_images=True)
+    history = summarizer.fit(Xtrain, Ytrain, Xtest, Ytest, epochs=100,callbacks = [tbCallBack])
 
     history_plot_file_path = report_dir_path + '/' + Seq2SeqSummarizer.model_name + '-history.png'
     if LOAD_EXISTING_WEIGHTS:

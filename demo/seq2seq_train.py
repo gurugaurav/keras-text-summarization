@@ -39,7 +39,7 @@ def main():
 
     print('start fitting ...')
     tbCallBack = keras.callbacks.TensorBoard(log_dir='/tmp/log', histogram_freq=0, write_graph=True, write_images=True)
-    history = summarizer.fit(Xtrain, Ytrain, Xtest, Ytest, epochs=100,callbacks = [tbCallBack])
+    history = summarizer.fit(Xtrain, Ytrain, Xtest, Ytest, epochs=100,callbacks = tbCallBack)
 
     history_plot_file_path = report_dir_path + '/' + Seq2SeqSummarizer.model_name + '-history.png'
     if LOAD_EXISTING_WEIGHTS:

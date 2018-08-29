@@ -515,7 +515,7 @@ class Seq2SeqGloVeSummarizerV2(object):
     def get_architecture_file_path(model_dir_path):
         return model_dir_path + '/' + Seq2SeqGloVeSummarizerV2.model_name + '-architecture.json'
 
-    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, batch_size=None, model_dir_path=None):
+    def fit(self, Xtrain, Ytrain, Xtest, Ytest, epochs=None, batch_size=None, model_dir_path=None, callbacks=None):
         if epochs is None:
             epochs = DEFAULT_EPOCHS
         if model_dir_path is None:
@@ -547,7 +547,7 @@ class Seq2SeqGloVeSummarizerV2(object):
         history = self.model.fit_generator(generator=train_gen, steps_per_epoch=train_num_batches,
                                            epochs=epochs,
                                            verbose=VERBOSE, validation_data=test_gen, validation_steps=test_num_batches,
-                                           callbacks=[checkpoint])
+                                           callbacks=[checkpoint,callbacks])
         self.model.save_weights(weight_file_path)
         return history
 
